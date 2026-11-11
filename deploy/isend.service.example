@@ -1,0 +1,25 @@
+[Unit]
+Description=isend.tech browser transfer signaling
+After=network.target
+
+[Service]
+Type=simple
+User=isend
+Group=isend
+WorkingDirectory=/opt/isend/current
+EnvironmentFile=/etc/isend/isend.env
+# Adjust the node path to your Node.js 22.13+ installation.
+ExecStart=/usr/bin/node --max-old-space-size=128 /opt/isend/current/server.mjs
+Restart=on-failure
+RestartSec=3
+StateDirectory=isend
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/isend
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target
